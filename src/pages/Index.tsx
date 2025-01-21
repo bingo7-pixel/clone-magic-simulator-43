@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search } from "lucide-react";
 
-// Enhanced mock data with more examples
+// Enhanced mock data with more examples and comments
 const mockOrders = [
   {
     id: "ORD#0001",
@@ -27,7 +27,19 @@ const mockOrders = [
     dueTime: "10:45 AM",
     commentTime: "10:55 AM",
     tableNumber: "T12",
-    priority: "High"
+    priority: "High",
+    comments: [
+      {
+        text: "Customer requested extra napkins",
+        timestamp: "10:35 AM",
+        author: "Mike"
+      },
+      {
+        text: "Allergic to peanuts - please note",
+        timestamp: "10:40 AM",
+        author: "Kitchen Staff"
+      }
+    ]
   },
   {
     id: "ORD#0002",
@@ -46,7 +58,14 @@ const mockOrders = [
     prepTime: "20 mins",
     dueTime: "10:55 AM",
     commentTime: "10:40 AM",
-    priority: "Medium"
+    priority: "Medium",
+    comments: [
+      {
+        text: "Customer will arrive at 11:00 AM",
+        timestamp: "10:36 AM",
+        author: "Lisa"
+      }
+    ]
   },
   {
     id: "ORD#0003",
@@ -66,7 +85,19 @@ const mockOrders = [
     dueTime: "11:05 AM",
     commentTime: "10:45 AM",
     deliveryAddress: "123 Main St",
-    priority: "High"
+    priority: "High",
+    comments: [
+      {
+        text: "Special instructions: Ring doorbell twice",
+        timestamp: "10:41 AM",
+        author: "Tom"
+      },
+      {
+        text: "Customer requested contactless delivery",
+        timestamp: "10:42 AM",
+        author: "Dispatch"
+      }
+    ]
   }
 ];
 
