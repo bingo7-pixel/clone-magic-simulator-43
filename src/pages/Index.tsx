@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { OrderRow } from "@/components/OrderRow";
 import { OrderDetails } from "@/components/OrderDetails";
+import Analytics from "@/components/Analytics";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search } from "lucide-react";
 
 // Mock data
@@ -25,12 +27,12 @@ const mockOrders = [
     dueTime: "10:45 AM",
     commentTime: "10:55 AM"
   },
-  // Add more mock orders as needed
 ];
 
 const Index = () => {
   const [selectedOrder, setSelectedOrder] = useState<string | null>(mockOrders[0].id);
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("orders");
 
   const selectedOrderDetails = mockOrders.find(order => order.id === selectedOrder);
 
@@ -38,44 +40,54 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <div className="container py-6">
         <div className="mb-6">
-          <h1 className="text-2xl font-semibold mb-4">Orders Dashboard</h1>
-          <div className="flex gap-4 mb-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary h-4 w-4" />
-              <Input
-                placeholder="Search in dashboard..."
-                className="pl-10"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            <Input
-              type="date"
-              className="w-48"
-            />
-            <Button variant="outline">
-              All Waiters
-            </Button>
-            <Button variant="outline">
-              All Status
-            </Button>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-[2fr,1fr] bg-white rounded-lg shadow-sm">
-          <div className="divide-y">
-            {mockOrders.map((order) => (
-              <OrderRow
-                key={order.id}
-                order={order}
-                onSelect={setSelectedOrder}
-                isSelected={selectedOrder === order.id}
-              />
-            ))}
-          </div>
-          {selectedOrderDetails && (
-            <OrderDetails order={selectedOrderDetails} />
-          )}
+          <h1 className="text-2xl font-semibold mb-4">Restaurant Dashboard</h1>
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList>
+              <TabsTrigger value="orders">Orders</TabsTrigger>
+              <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            </TabsList>
+            <TabsContent value="orders">
+              <div className="flex gap-4 mb-4">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary h-4 w-4" />
+                  <Input
+                    placeholder="Search in dashboard..."
+                    className="pl-10"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+                <Input
+                  type="date"
+                  className="w-48"
+                />
+                <Button variant="outline">
+                  All Waiters
+                </Button>
+                <Button variant="outline">
+                  All Status
+                </Button>
+              </div>
+              <div className="grid grid-cols-[2fr,1fr] bg-white rounded-lg shadow-sm">
+                <div className="divide-y">
+                  {mockOrders.map((order) => (
+                    <OrderRow
+                      key={order.id}
+                      order={order}
+                      onSelect={setSelectedOrder}
+                      isSelected={selectedOrder === order.id}
+                    />
+                  ))}
+                </div>
+                {selectedOrderDetails && (
+                  <OrderDetails order={selectedOrderDetails} />
+                )}
+              </div>
+            </TabsContent>
+            <TabsContent value="analytics">
+              <Analytics />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>
