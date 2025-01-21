@@ -1,6 +1,7 @@
 import { Printer, MessageSquare, Send } from "lucide-react";
 import { OrderStatus } from "./OrderStatus";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface OrderRowProps {
   order: {
