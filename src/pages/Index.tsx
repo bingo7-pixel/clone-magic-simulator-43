@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search } from "lucide-react";
 
-// Mock data
+// Enhanced mock data with more examples
 const mockOrders = [
   {
     id: "ORD#0001",
@@ -25,8 +25,49 @@ const mockOrders = [
     ],
     prepTime: "15 mins",
     dueTime: "10:45 AM",
-    commentTime: "10:55 AM"
+    commentTime: "10:55 AM",
+    tableNumber: "T12",
+    priority: "High"
   },
+  {
+    id: "ORD#0002",
+    customer: "Sarah Smith",
+    type: "Takeaway",
+    date: "2024-04-10",
+    time: "10:35 AM",
+    server: "Lisa",
+    status: "ontime" as const,
+    amount: 42.50,
+    items: [
+      { name: "Pizza", quantity: 1, price: 22.99, modifiers: ["Extra pepperoni"] },
+      { name: "Wings", quantity: 2, price: 8.99, modifiers: ["Spicy"] },
+      { name: "Garlic Bread", quantity: 1, price: 4.99 }
+    ],
+    prepTime: "20 mins",
+    dueTime: "10:55 AM",
+    commentTime: "10:40 AM",
+    priority: "Medium"
+  },
+  {
+    id: "ORD#0003",
+    customer: "Michael Johnson",
+    type: "Delivery",
+    date: "2024-04-10",
+    time: "10:40 AM",
+    server: "Tom",
+    status: "critical" as const,
+    amount: 68.75,
+    items: [
+      { name: "Steak", quantity: 2, price: 29.99, modifiers: ["Medium rare", "Extra sauce"] },
+      { name: "Salad", quantity: 1, price: 8.99 },
+      { name: "Wine", quantity: 1, price: 19.99 }
+    ],
+    prepTime: "25 mins",
+    dueTime: "11:05 AM",
+    commentTime: "10:45 AM",
+    deliveryAddress: "123 Main St",
+    priority: "High"
+  }
 ];
 
 const Index = () => {
@@ -40,11 +81,11 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <div className="container py-6">
         <div className="mb-6">
-          <h1 className="text-2xl font-semibold mb-4">Restaurant Dashboard</h1>
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList>
-              <TabsTrigger value="orders">Orders</TabsTrigger>
-              <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <h1 className="text-2xl font-semibold mb-4 text-primary-dark">Restaurant Dashboard</h1>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+            <TabsList className="bg-primary-light/10">
+              <TabsTrigger value="orders" className="data-[state=active]:bg-primary-light data-[state=active]:text-white">Orders</TabsTrigger>
+              <TabsTrigger value="analytics" className="data-[state=active]:bg-primary-light data-[state=active]:text-white">Analytics</TabsTrigger>
             </TabsList>
             <TabsContent value="orders">
               <div className="flex gap-4 mb-4">
@@ -52,24 +93,24 @@ const Index = () => {
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary h-4 w-4" />
                   <Input
                     placeholder="Search in dashboard..."
-                    className="pl-10"
+                    className="pl-10 border-primary-light/20"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
                 <Input
                   type="date"
-                  className="w-48"
+                  className="w-48 border-primary-light/20"
                 />
-                <Button variant="outline">
+                <Button variant="outline" className="border-primary-light/20 hover:bg-primary-light/10">
                   All Waiters
                 </Button>
-                <Button variant="outline">
+                <Button variant="outline" className="border-primary-light/20 hover:bg-primary-light/10">
                   All Status
                 </Button>
               </div>
-              <div className="grid grid-cols-[2fr,1fr] bg-white rounded-lg shadow-sm">
-                <div className="divide-y">
+              <div className="grid grid-cols-[2fr,1fr] bg-white rounded-lg shadow-sm border border-primary-light/10">
+                <div className="divide-y divide-primary-light/10">
                   {mockOrders.map((order) => (
                     <OrderRow
                       key={order.id}

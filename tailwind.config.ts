@@ -25,7 +25,9 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#6E41E2",
+          DEFAULT: "#4B0082",
+          light: "#7851A9",
+          dark: "#66023C",
           foreground: "#FFFFFF",
         },
         status: {
@@ -43,7 +45,7 @@ export default {
           },
         },
         secondary: {
-          DEFAULT: "#64748B",
+          DEFAULT: "#800080",
           foreground: "#1A1F2C",
         },
         muted: {
@@ -51,7 +53,7 @@ export default {
           foreground: "#64748B",
         },
         accent: {
-          DEFAULT: "#E2E8F0",
+          DEFAULT: "#7851A9",
           foreground: "#1A1F2C",
         },
       },
