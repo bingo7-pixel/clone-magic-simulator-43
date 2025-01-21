@@ -2,6 +2,7 @@ import { Printer, MessageSquare, Send } from "lucide-react";
 import { OrderStatus } from "./OrderStatus";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { usePermissions } from "@/hooks/usePermissions";
 
 interface OrderRowProps {
   order: {
@@ -19,18 +20,20 @@ interface OrderRowProps {
 }
 
 export const OrderRow = ({ order, onSelect, isSelected }: OrderRowProps) => {
+  const { can } = usePermissions();
+
   return (
     <div 
       className={cn(
         "grid grid-cols-[auto,1fr,auto,auto,auto,auto,auto] gap-4 items-center p-4 border-b hover:bg-muted/50 cursor-pointer transition-colors",
         isSelected && "bg-muted"
       )}
-      onClick={() => onSelect(order.id)}
+      onClick={() => can('viewOrders') && onSelect(order.id)}
     >
       <input
         type="checkbox"
         checked={isSelected}
-        onChange={() => onSelect(order.id)}
+        onChange={() => can('viewOrders') && onSelect(order.id)}
         className="h-4 w-4 rounded border-gray-300"
       />
       <div className="flex items-center gap-2">

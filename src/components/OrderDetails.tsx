@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Printer, MessageSquare, Send } from "lucide-react";
+import { usePermissions } from "@/hooks/usePermissions";
 
 interface OrderDetailsProps {
   order: {
@@ -19,6 +20,8 @@ interface OrderDetailsProps {
 }
 
 export const OrderDetails = ({ order }: OrderDetailsProps) => {
+  const { can } = usePermissions();
+
   return (
     <div className="p-6 border-l h-full">
       <div className="flex justify-between items-center mb-6">
@@ -27,15 +30,21 @@ export const OrderDetails = ({ order }: OrderDetailsProps) => {
           <p className="text-sm text-secondary">{order.id}</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="icon">
-            <Printer className="h-4 w-4" />
-          </Button>
-          <Button variant="outline" size="icon">
-            <MessageSquare className="h-4 w-4" />
-          </Button>
-          <Button variant="outline" size="icon">
-            <Send className="h-4 w-4" />
-          </Button>
+          {can('printOrders') && (
+            <Button variant="outline" size="icon">
+              <Printer className="h-4 w-4" />
+            </Button>
+          )}
+          {can('addComments') && (
+            <Button variant="outline" size="icon">
+              <MessageSquare className="h-4 w-4" />
+            </Button>
+          )}
+          {can('updateStatus') && (
+            <Button variant="outline" size="icon">
+              <Send className="h-4 w-4" />
+            </Button>
+          )}
         </div>
       </div>
 
